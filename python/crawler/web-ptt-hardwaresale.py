@@ -1,5 +1,7 @@
 #! /usr/bin/env python
 
+import re
+import HTMLParser
 import urllib2
 import lxml.html
 from lxml.cssselect import CSSSelector
@@ -8,14 +10,21 @@ response = urllib2.urlopen('https://www.ptt.cc/bbs/HardwareSale/index.html')
 content = response.read()
 
 root = lxml.html.fromstring(content)
-
-#print lxml.html.tostring(root)
-
-sel = CSSSelector('div.pull-right')
+sel = CSSSelector('div .r-ent a')
+#sel = CSSSelector('div.pull-right')
 
 results = sel(root)
-#print results
 
-match = results[0]
-print lxml.html.tostring(match)
+#match = results[0]
+#print lxml.html.tostring(match)
+
+htmlParser = HTMLParser.HTMLParser()
+for result in results:
+    trimContent = lxml.html.tostring(result).strip(' \t\n\r')
+    decodeContent = htmlParser.unescape(trimContent)
+    grepContent = re.search('<a href="/bbs(.+).html">(.+)</a>', decodeContent)
+
+    #Get URL and Title
+    grepContent.group(2)
+    grepContent.group(1)
 
