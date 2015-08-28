@@ -28,3 +28,17 @@ for result in results:
     grepContent.group(2)
     grepContent.group(1)
 
+
+# get article
+response = urllib2.urlopen('https://www.ptt.cc/bbs/HardwareSale/M.1440764830.A.212.html')
+content = response.read()
+
+root = lxml.html.fromstring(content)
+sel = CSSSelector('#main-container')
+results = sel(root)
+
+htmlParser = HTMLParser.HTMLParser()
+for result in results:
+    trimContent = lxml.html.tostring(result).strip(' \t\n\r')
+    decodeContent = htmlParser.unescape(trimContent).encode('utf-8')
+    print decodeContent
