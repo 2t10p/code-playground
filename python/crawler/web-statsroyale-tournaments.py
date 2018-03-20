@@ -23,10 +23,10 @@ contents = urllib.request.urlopen(request).read()
 
 root = lxml.html.fromstring(contents)
 sel = CSSSelector("div .challenges__rowContainer")
-results = sel(root)
+divs = sel(root)
 
-for result in results:
-    trimContent = lxml.html.tostring(result)
+for div in divs:
+    trimContent = lxml.html.tostring(div)
     soup=BeautifulSoup(trimContent, "lxml")
     text = soup.get_text(" | ", strip=True)
     infos = text.split(" | ")
@@ -35,8 +35,8 @@ for result in results:
     infos.pop(-1)
     infos.pop(-1)
 
-    players = infos[1]
-    if players != "50/50":
-        info = " | "
-        print(info.join(infos))
+    player = infos[1]
+    if player != "50/50":
+        result = " | "
+        print(result.join(infos))
 
