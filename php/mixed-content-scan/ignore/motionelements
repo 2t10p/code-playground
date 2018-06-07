@@ -1,0 +1,4 @@
+^{$rootUrl}/search(.*)
+^{$rootUrl}/search
+
+

@@ -1,0 +1,8 @@
+{
+    "require": {
+        "bramus/mixed-content-scan": "~2.8"
+    },
+    "scripts": {
+        "scan":"vendor/bin/mixed-content-scan"
+    }
+}
